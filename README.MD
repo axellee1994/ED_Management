@@ -35,39 +35,37 @@ A comprehensive time series forecasting project using SARIMAX modeling to predic
 - **Average Daily ED Attendance**: ~2,455 visits across all hospitals
 - **Average Daily Inpatient Admissions from ED**: ~791 admissions across all hospitals
 
-## 🏥 Hospital Classification & Admission Rates
+## 🏥 Hospital Admission Rate Methodology
 
 ### Based on 2021 NEDI Singapore Study - ED Visits Leading to Admission
 
 **Public Sector Hospital Distribution (2021):**
-- **22% of hospitals**: <20% admission rate (2 hospitals)
-- **56% of hospitals**: 20-39% admission rate (5 hospitals)
-- **11% of hospitals**: 40-59% admission rate (1 hospital)
-- **11% of hospitals**: 60-79% admission rate (1 hospital)
+- **22% of hospitals**: <20% admission rate  
+- **56% of hospitals**: 20-39% admission rate
+- **11% of hospitals**: 40-59% admission rate
+- **11% of hospitals**: 60-79% admission rate
 
-**Evidence-Based Hospital Classifications:**
+**Implementation Approach:**
+Given the absence of hospital-specific admission rates, we calculate a **system-wide weighted average**:
 
-### Tier 1 - Specialized/Tertiary Hospitals
-- **SGH** (60-79% range): 69.5% admission rate - Major tertiary referral center
-- **TTSH** (40-59% range): 49.5% admission rate - Major general hospital with specialties
+```
+Weighted Average = (0.22 × 15%) + (0.56 × 29.5%) + (0.11 × 49.5%) + (0.11 × 69.5%)
+                 = 3.3% + 16.52% + 5.445% + 7.645%  
+                 = 32.91%
+```
 
-### Tier 2 - General Hospitals (20-39% admission rate)
-- **CGH**: 29.5% admission rate - Regional general hospital
-- **NUH(A)**: 29.5% admission rate - University hospital
-- **SKH**: 29.5% admission rate - Regional hospital
-- **KTPH**: 29.5% admission rate - Regional hospital
-- **NTFGH**: 29.5% admission rate - Community hospital
-
-### Tier 3 - Community/Regional Hospitals (<20% admission rate)
-- **AH**: 15% admission rate - Smaller community hospital
-- **WH**: 15% admission rate - Newer regional hospital
+**Uniform Admission Rate Applied:**
+- **All Hospitals**: 32.9% admission rate from ED visits
+- **Rationale**: Avoids assumptions about individual hospital characteristics
+- **Validation**: To be refined with actual SGH BMU data post-October 2024
 
 ### System-Wide Metrics
-- **Weighted Average Admission Rate**: ~32.2%
-- **Total Daily System Capacity**: 9 hospitals, ~791 daily admissions from ED
+- **Uniform Admission Rate**: 32.9%
+- **Average Daily ED Attendance**: ~2,455 visits across all hospitals
+- **Average Daily Inpatient Admissions from ED**: ~807 admissions across all hospitals
 - **Peak vs. Average**: Admission patterns follow ED attendance seasonality
 
-*Note: Hospital assignments based on facility type, capacity, and specialization level. Specific rates will be validated with actual SGH BMU data post-October 2024.*
+*Note: Uniform rate methodology ensures transparency and avoids unsupported hospital classifications. Individual hospital rates will be implemented upon receipt of actual data from SGH BMU.*
 
 ## 🔧 Technical Implementation
 
@@ -126,19 +124,12 @@ ED_Management/
 
 ### Hospital Performance Analysis
 
-**Highest Volume Hospitals (Attendance → Admissions):**
-1. **Changi General (CGH)**: 371.1 avg daily attendances → 109.5 daily admissions
-2. **Tan Tock Seng (TTSH)**: 366.6 avg daily attendances → 181.5 daily admissions
-3. **Sengkang (SKH)**: 348.9 avg daily attendances → 103.0 daily admissions
+**Volume Analysis (Uniform 32.9% Admission Rate):**
+1. **Changi General (CGH)**: 371.1 avg daily attendances → 122.1 daily admissions
+2. **Tan Tock Seng (TTSH)**: 366.6 avg daily attendances → 120.6 daily admissions
+3. **Sengkang (SKH)**: 348.9 avg daily attendances → 114.8 daily admissions
 
-**Highest Admission Rate Hospitals:**
-1. **Singapore General (SGH)**: 69.5% admission rate from ED visits
-2. **Tan Tock Seng (TTSH)**: 49.5% admission rate from ED visits
-3. **General Hospitals (Tier 2)**: 29.5% average admission rate
-
-**Most Stable Operations:**
-- **SGH**: Consistent high-acuity admissions (std: 34.4 attendance)
-- **SKH**: Reliable general hospital operations (std: 36.6 attendance)
+**All hospitals apply the same 32.9% conversion rate pending actual data validation.**
 
 ## 🤖 Machine Learning Pipeline
 
