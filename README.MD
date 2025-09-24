@@ -4,7 +4,7 @@ A comprehensive time series forecasting project using SARIMAX modeling to predic
 
 ## 🎯 Project Objectives
 
-**Primary Goal:** To forecast inpatient admissions arising from ED visits for the next 7 days using machine learning and time series analysis.
+**Primary Goal:** To forecast inpatient admissions arising from ED visits for the next 7 days
 
 **Key Benefits:**
 - Enable proactive resource allocation across hospital networks
