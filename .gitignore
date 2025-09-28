@@ -6,10 +6,6 @@
 .env.production.local
 *.env
 
-# Excel files
-*.xlsx
-*.xls
-
 # Python environment
 venv/
 env/
